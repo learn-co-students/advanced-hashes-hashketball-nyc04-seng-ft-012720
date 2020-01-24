@@ -202,4 +202,69 @@ def big_shoe_rebounds
     end
     return big_shoe[:rebounds]
 end
+
+def most_points_scored
+  most_points = nil
+  hasket = game_hash()
+  hasket.each do |team,team_info|
+    team_info[:players].each do |player|
+        if most_points == nil || most_points[:points] < player[:points]
+          most_points = player
+        end
+      end
+    end
+  return most_points[:player_name]
+end
+  
+def winning_team
+  most_points = 0
+  win_team = ""
+  hasket = game_hash()
+  hasket.each do |team,team_info|
+    total_current = 0
+    team_info[:players].each do |player|
+      total_current += player[:points]
+    end
+    if total_current > most_points
+      win_team = team_info[:team_name]
+      most_points = total_current
+    end
+   end
+  return win_team
+end
+
+def player_with_longest_name
+  long_name = ""
+  longest_length = 0
+  hasket = game_hash()
+  hasket.each do |team,team_info|
+    team_info[:players].each do |player|
+      current_name = player[:player_name]
+      current_length = current_name.length
+      if longest_length < current_length
+        longest_length = current_length
+        long_name = current_name
+      end
+    end
+  end
+  return long_name
+end
+
+def long_name_steals_a_ton?
+  most_steals_name = ""
+  most_steals = 0
+  hasket = game_hash()
+  hasket.each do |team,team_info|
+    team_info[:players].each do |player|
+      current_steals = player[:steals]
+      if current_steals > most_steals
+        most_steals = current_steals
+        most_steals_name = player[:player_name]
+      end
+    end
+  end
+  return player_with_longest_name() == most_steals_name
+end
+
+
         
